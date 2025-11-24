@@ -18,3 +18,18 @@ def leave_one_out_cross_validation(feature_subset, data=None):
         Random accuracy percentage (float)
     """
     return round(random.uniform(0, 100), 1)
+
+def print_feature_set(features):
+    """
+    Format feature list as {1,2,3} to match required trace output.
+    
+    Args:
+        features: List of feature indices
+    
+    Returns:
+        Formatted string like "{1,2,3}" or "{}" for empty
+    """
+    if not features:
+        return "{}"
+    sorted_features = sorted(features)
+    return "{" + ",".join(str(f) for f in sorted_features) + "}"
