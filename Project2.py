@@ -33,3 +33,17 @@ def print_feature_set(features):
         return "{}"
     sorted_features = sorted(features)
     return "{" + ",".join(str(f) for f in sorted_features) + "}"
+
+def forward_selection(total_features):
+    """
+    Greedy Forward Selection Algorithm.
+    
+    Strategy:
+    - Start with empty feature set
+    - At each level, try adding each remaining feature
+    - Add the feature that gives highest accuracy
+    - Stop when accuracy decreases (greedy hill-climbing)
+    
+    Args:
+        total_features: Total number of features available
+    """
