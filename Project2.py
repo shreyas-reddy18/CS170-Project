@@ -135,6 +135,43 @@ def special_algorithm(total_features):
     print(f"Using no features accuracy is {best_overall_accuracy}%")
     print("\nBeginning search.\n")
 
+    improved = True
+
+    while improved:
+        improved = False
+        candidates = []
+
+        #expand each subset in the current beam
+        for subset in current_beam:
+            for feature in range(1, total_features + 1):
+                if feature not in subset:
+                    new_subset = subset + [feature]
+                    acc = leave_one_out_cross_validation(new_subset)
+
+                    print(f"    Using feature(s) {print_feature_set(new_subset)} accuracy is {acc}%")
+
+                    candidates.append((acc, new_subset))
+
+                    # Track best overall accuracy
+                    if acc > best_overall_accuracy:
+                        best_overall_accuracy = acc
+                        best_overall_subset = new_subset
+                        improved = True
+
+        if not candidates:
+            break
+
+        #sort by accuracy, keep only the top "beam_width" subsets
+        candidates.sort(reverse=True, key=lambda x: x[0])
+        current_beam = [subset for (_, subset) in candidates[:beam_width]]
+
+        print("\nBeam retained subsets:")
+        for acc, subset in candidates[:beam_width]:
+            print(f"  {print_feature_set(subset)} (accuracy {acc}%)")
+        print()
+
+    print(f"Finished search!! Best subset found: {print_feature_set(best_overall_subset)}, accuracy = {best_overall_accuracy}%")
+
 def main():
 
     print("Welcome to Team Blue's Feature Selection Algorithm.")
