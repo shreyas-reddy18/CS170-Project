@@ -112,6 +112,58 @@ def backward_elimination(total_features):
         total_features: Total number of features available
     """
 
+    current_features = list(range(1, total_features + 1))  # Start with all features
+    best_overall_accuracy = 0
+    best_overall_features = []
+    
+    # Evaluate baseline (all features)
+    initial_accuracy = leave_one_out_cross_validation(current_features)
+    print(f'Using feature(s) {print_feature_set(current_features)} and "random" evaluation, I get an accuracy of {initial_accuracy}%')
+    print("\nBeginning search.\n")
+    
+    best_overall_accuracy = initial_accuracy
+    best_overall_features = copy.deepcopy(current_features)
+
+    # Iterate through levels removing one feature at a time
+    for level in range(total_features):
+        if not current_features:
+            break
+            
+        best_feature_to_remove = None
+        best_accuracy_at_level = -1
+        
+        # Try removing each feature currently in the set
+        for feature_id in current_features:
+            # Create test set with this feature removed
+            test_features = [f for f in current_features if f != feature_id]
+            accuracy = leave_one_out_cross_validation(test_features)
+            
+            print(f"    Using feature(s) {print_feature_set(test_features)} accuracy is {accuracy}%")
+            
+            # Track best removal at this level
+            if accuracy > best_accuracy_at_level:
+                best_accuracy_at_level = accuracy
+                best_feature_to_remove = feature_id
+        
+        # Remove the feature that gave best accuracy
+        if best_feature_to_remove is not None:
+            current_features.remove(best_feature_to_remove)
+            print(f"\nFeature set {print_feature_set(current_features)} was best, accuracy is {best_accuracy_at_level}%\n")
+            
+            # Check if we improved or maintained accuracy
+            if best_accuracy_at_level >= best_overall_accuracy:
+                best_overall_accuracy = best_accuracy_at_level
+                best_overall_features = copy.deepcopy(current_features)
+            else:
+                # Accuracy decreased so we stop searching
+                print("(Warning, Accuracy has decreased!)\n")
+                break
+        else:
+            break
+    
+    # Report final results
+    print(f"Finished search!! The best feature subset is {print_feature_set(best_overall_features)}, which has an accuracy of {best_overall_accuracy}%")
+
 def special_algorithm(total_features):
     """
     Custom search algorithm for extra credit.
