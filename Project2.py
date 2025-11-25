@@ -112,6 +112,18 @@ def backward_elimination(total_features):
         total_features: Total number of features available
     """
 
+    current_features = list(range(1, total_features + 1))  # Start with all features
+    best_overall_accuracy = 0
+    best_overall_features = []
+    
+    # Evaluate baseline (all features)
+    initial_accuracy = leave_one_out_cross_validation(current_features)
+    print(f'Using feature(s) {print_feature_set(current_features)} and "random" evaluation, I get an accuracy of {initial_accuracy}%')
+    print("\nBeginning search.\n")
+    
+    best_overall_accuracy = initial_accuracy
+    best_overall_features = copy.deepcopy(current_features)
+
 def special_algorithm(total_features):
     """
     Custom search algorithm for extra credit.
