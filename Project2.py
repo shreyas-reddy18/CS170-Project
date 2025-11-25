@@ -233,14 +233,19 @@ def main():
         
         print("\nType the number of the algorithm you want to run.")
         print("  1) Forward Selection")
+        print("  2) Backward Elimination")
+        print("  3) Team Blue's Special Algorithm")
         
         choice = input("\n")
-        
         print()
         
         # Execute selected algorithm
         if choice == '1':
             forward_selection(num_features)
+        elif choice == '2':
+            backward_elimination(num_features)
+        elif choice == '3':
+            special_algorithm(num_features)
         else:
             print("Invalid selection. Please run the program again and choose 1, 2, or 3.")
     
