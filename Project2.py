@@ -112,6 +112,17 @@ def backward_elimination(total_features):
         total_features: Total number of features available
     """
 
+def special_algorithm(total_features):
+    """
+    Custom search algorithm for extra credit.
+    
+    PLACEHOLDER: Implement your own algorithm here that is either:
+    1. Faster than forward/backward
+    2. Gives better results than forward/backward
+    
+    For Part I submission, this can be left as a stub.
+    Must include clear explanation in report for extra credit.
+    """
 
 def main():
 
