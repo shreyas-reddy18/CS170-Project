@@ -98,7 +98,19 @@ def forward_selection(total_features):
     
     print(f"Finished search!! The best feature subset is {print_feature_set(best_overall_features)}, which has an accuracy of {best_overall_accuracy}%")
 
-
+def backward_elimination(total_features):
+    """
+    Greedy Backward Elimination Algorithm.
+    
+    Strategy:
+    - Start with all features
+    - At each level, try removing each current feature
+    - Remove the feature that gives highest accuracy when removed
+    - Stop when accuracy decreases (greedy hill-climbing)
+    
+    Args:
+        total_features: Total number of features available
+    """
 
 
 def main():
