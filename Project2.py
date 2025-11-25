@@ -124,6 +124,17 @@ def special_algorithm(total_features):
     Must include clear explanation in report for extra credit.
     """
 
+    print("\nRunning Team Blue's Special Algorithm (Beam Search)\n")
+
+    beam_width = 2  #keep only top 2 candidate subsets
+    current_beam = [ [] ]  #start with empty subset
+
+    best_overall_subset = []
+    best_overall_accuracy = leave_one_out_cross_validation([])
+
+    print(f"Using no features accuracy is {best_overall_accuracy}%")
+    print("\nBeginning search.\n")
+
 def main():
 
     print("Welcome to Team Blue's Feature Selection Algorithm.")
