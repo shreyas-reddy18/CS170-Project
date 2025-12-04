@@ -188,3 +188,29 @@ class LeaveOneOutValidator:
 
         return accuracy
 
+def main():
+    print("CS170 Project 2 - Part II: Nearest Neighbor and Validator")
+    dataset_path = input("Enter path to dataset file: ").strip()
+    dataset, num_features = load_dataset(dataset_path)
+    print(f"Loaded dataset with {len(dataset)} instances and {num_features} features.")
+
+    normalize_dataset(dataset)
+    print("Features normalized (zero mean, unit variance).\n")
+
+    subset_str = input(
+        "Enter feature subset as space-separated indices (e.g., '3 5 7'): "
+    ).strip()
+    if not subset_str:
+        print("No features specified. Exiting.")
+        return
+
+    feature_subset = [int(x) for x in subset_str.split()]
+    print(f"Using feature subset: {feature_subset}\n")
+
+    validator = LeaveOneOutValidator(dataset)
+    # Set verbose=True if you want per-instance trace lines
+    validator.evaluate(feature_subset, verbose=False)
+
+
+if __name__ == "__main__":
+    main()
