@@ -182,7 +182,7 @@ class LeaveOneOutValidator:
         accuracy = correct / n
 
         print(
-            f"Finished LOOCV for features {feature_subset} "
+            f"Finished Leave One Out Validation for features {feature_subset} "
             f"-> accuracy = {accuracy:.4f} ({correct}/{n})"
         )
         print(f"Time elapsed: {end_time - start_time:.4f} seconds\n")
