@@ -128,3 +128,12 @@ class NearestNeighborClassifier:
                 best_label = label
 
         return best_label
+
+
+class LeaveOneOutValidator:
+    """
+    Leave-One-Out Cross-Validation for a given classifier and feature subset.
+    """
+
+    def __init__(self, dataset: List[List[float]]):
+        self.dataset = dataset
