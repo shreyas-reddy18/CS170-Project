@@ -5,6 +5,7 @@ Nearest Neighbor Classifier and Leave-One-Out Validator
 Authors: Shreyas, Rishabh, Rehan
 """
 import math
+import time
 from typing import Tuple, List, Sequence
 
 def load_dataset(path: str) -> Tuple[List[List[float]], int]:
