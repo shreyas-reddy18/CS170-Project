@@ -5,7 +5,7 @@ Nearest Neighbor Classifier and Leave-One-Out Validator
 Authors: Shreyas, Rishabh, Rehan
 """
 import math
-from typing import Tuple, List
+from typing import Tuple, List, Sequence
 
 def load_dataset(path: str) -> Tuple[List[List[float]], int]:
     """
@@ -69,3 +69,62 @@ def normalize_dataset(dataset: List[List[float]]) -> None:
             else:
                 # Feature has zero variance; set to 0 for all instances
                 row[1 + j] = 0.0
+
+class NearestNeighborClassifier:
+    """
+    Simple 1-Nearest Neighbor classifier using Euclidean distance.
+
+    Train:
+        stores the training instances.
+
+    Test:
+        given a test instance, returns the predicted class label
+        of the closest training instance (under Euclidean distance)
+        restricted to a given feature subset.
+    """
+
+    def __init__(self, feature_subset: Sequence[int]):
+        # Feature indices are 1-based (1..N) in the project spec
+        # Internally we keep them as 0-based indices into the feature vector
+        self.feature_indices = [f - 1 for f in feature_subset]
+        self.train_features: List[List[float]] = []
+        self.train_labels: List[float] = []
+
+    def train(self, training_data: List[List[float]]) -> None:
+        """
+        Store training data.
+
+        Args:
+            training_data: list of rows [class_label, f1, ..., fN]
+        """
+        self.train_labels = [row[0] for row in training_data]
+        self.train_features = [row[1:] for row in training_data]
+
+    def test(self, instance: List[float]) -> float:
+        """
+        Predict the class label for a single test instance.
+
+        Args:
+            instance: [class_label, f1, ..., fN] 
+
+        Returns:
+            predicted class label (float, 1.0 or 2.0)
+        """
+        if not self.train_features:
+            raise RuntimeError("Classifier has not been trained")
+
+        test_features = instance[1:]
+        best_dist = float("inf")
+        best_label = None
+
+        for label, train_vec in zip(self.train_labels, self.train_features):
+            dist = 0.0
+            for idx in self.feature_indices:
+                diff = test_features[idx] - train_vec[idx]
+                dist += diff * diff
+            # No need to take sqrt for comparison
+            if dist < best_dist:
+                best_dist = dist
+                best_label = label
+
+        return best_label
