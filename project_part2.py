@@ -155,3 +155,36 @@ class LeaveOneOutValidator:
 
         correct = 0
         start_time = time.perf_counter()
+
+     for i in range(n):
+            # Split into training and test
+            test_instance = self.dataset[i]
+            train_data = [self.dataset[j] for j in range(n) if j != i]
+
+            # Create and train classifier
+            clf = NearestNeighborClassifier(feature_subset)
+            clf.train(train_data)
+
+            # Predict
+            predicted = clf.test(test_instance)
+            actual = test_instance[0]
+
+            if predicted == actual:
+                correct += 1
+
+            if verbose:
+                print(
+                    f"Instance {i+1}/{n}: actual={int(actual)}, predicted={int(predicted)}"
+                )
+
+        end_time = time.perf_counter()
+        accuracy = correct / n
+
+        print(
+            f"Finished LOOCV for features {feature_subset} "
+            f"-> accuracy = {accuracy:.4f} ({correct}/{n})"
+        )
+        print(f"Time elapsed: {end_time - start_time:.4f} seconds\n")
+
+        return accuracy
+
