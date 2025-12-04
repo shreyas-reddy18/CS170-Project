@@ -137,3 +137,21 @@ class LeaveOneOutValidator:
 
     def __init__(self, dataset: List[List[float]]):
         self.dataset = dataset
+
+    def evaluate(self, feature_subset: Sequence[int], verbose: bool = False) -> float:
+        """
+        Perform leave-one-out validation.
+
+        Args:
+            feature_subset: list/tuple of feature indices (1-based)
+            verbose: if True, prints per-instance predictions (trace)
+
+        Returns:
+            accuracy as a float in [0,1]
+        """
+        n = len(self.dataset)
+        if n == 0:
+            raise ValueError("Empty dataset")
+
+        correct = 0
+        start_time = time.perf_counter()
