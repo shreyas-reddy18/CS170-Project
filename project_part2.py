@@ -141,7 +141,7 @@ class LeaveOneOutValidator:
 
     def evaluate(self, feature_subset: Sequence[int], verbose: bool = False) -> float:
         """
-        Perform leave-one-out validation.
+        Perform Leave One Out Validation.
 
         Args:
             feature_subset: list/tuple of feature indices (1-based)
@@ -209,7 +209,7 @@ def main():
     print(f"Using feature subset: {feature_subset}\n")
 
     validator = LeaveOneOutValidator(dataset)
-    # Set verbose=True if you want per-instance trace lines
+    # verbose=True for per-instance trace lines
     validator.evaluate(feature_subset, verbose=False)
 
 
