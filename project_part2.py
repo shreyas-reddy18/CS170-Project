@@ -157,7 +157,7 @@ class LeaveOneOutValidator:
         correct = 0
         start_time = time.perf_counter()
 
-     for i in range(n):
+        for i in range(n):
             # Split into training and test
             test_instance = self.dataset[i]
             train_data = [self.dataset[j] for j in range(n) if j != i]
@@ -186,7 +186,7 @@ class LeaveOneOutValidator:
             f"-> accuracy = {accuracy:.4f} ({correct}/{n})"
         )
         print(f"Time elapsed: {end_time - start_time:.4f} seconds\n")
-
+            
         return accuracy
 
 def main():
