@@ -233,10 +233,28 @@ def special_algorithm(total_features):
 
 def main():
 
+    global validator
+
     print("Welcome to Team Blue's Feature Selection Algorithm.")
-    
+
+    dataset_path = input("\nType in the name of the file to test: ").strip()
+
     try:
-        num_features = int(input("\nPlease enter total number of features: "))
+        dataset, num_features = load_dataset(dataset_path)
+        except FileNotFoundError:
+            print(f"Error: Could not find file '{dataset_path}'. Please make sure it is in this directory.")
+            return
+
+        print(
+            f"\nThis dataset has {num_features} features (not including the class attribute), "
+            f"with {len(dataset)} instances."
+        )
+
+        print("\nPlease wait while I normalize the data... ", end="")
+        normalize_dataset(dataset)
+        print("Done!\n")
+
+        validator = LeaveOneOutValidator(dataset)
         
         print("\nType the number of the algorithm you want to run.")
         print("  1) Forward Selection")
