@@ -62,7 +62,7 @@ def forward_selection(total_features):
     
     # Evaluate baseline (no features)
     initial_accuracy = leave_one_out_cross_validation(current_features)
-    print(f'Using no features and "random" evaluation, I get an accuracy of {initial_accuracy}%')
+    print(f'Running nearest neighbor with no features (default rate), using \"leave-one-out\" evaluation, I get an accuracy of {initial_accuracy}%')
     print("\nBeginning search.\n")
     
     best_overall_accuracy = initial_accuracy
@@ -125,7 +125,7 @@ def backward_elimination(total_features):
     
     # Evaluate baseline (all features)
     initial_accuracy = leave_one_out_cross_validation(current_features)
-    print(f'Using feature(s) {print_feature_set(current_features)} and "random" evaluation, I get an accuracy of {initial_accuracy}%')
+    print(f'Using all features {print_feature_set(current_features)}, I get an accuracy of {initial_accuracy}%')
     print("\nBeginning search.\n")
     
     best_overall_accuracy = initial_accuracy
