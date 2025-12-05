@@ -1,25 +1,32 @@
 """
-CS170 Project 2: Part 1
+CS170 Project 2: Part 1 & 3
 
 Authors: Shreyas, Rishabh, Rehan
 """
 
-import random
 import copy 
+from project_part2 import LeaveOneOutValidator, load_dataset, normalize_dataset
+
+validator = None
 
 def leave_one_out_cross_validation(feature_subset, data=None):
     """
-    Returns random accuracy.
-    In Part II, this will be replaced with actual k-NN classifier.
+    Leave one out cross validation based accuracy using NN classifier from Part 2.
     
     Args:
         feature_subset: List of feature indices to evaluate
-        data: Dataset (unused in Part I stub)
     
     Returns:
-        Random accuracy percentage (float)
+        Accuracy in percent (float)
     """
-    return round(random.uniform(0, 100), 1)
+    global validator
+    if validator is None:
+        raise RuntimeError(
+            "Validator has not been initialized. "
+            "Make sure main() loaded the dataset and created a LeaveOneOutValidator."
+        )
+    accuracy = validator.evaluate(feature_subset, verbose=False)
+    return round(accuracy * 100, 1)
 
 def print_feature_set(features):
     """
