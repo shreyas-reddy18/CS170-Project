@@ -190,50 +190,27 @@ class LeaveOneOutValidator:
         return accuracy
 
 def main():
-    global validator
+    print("CS170 Project 2 - Part II: Nearest Neighbor and Validator")
+    dataset_path = input("Enter path to dataset file: ").strip()
+    dataset, num_features = load_dataset(dataset_path)
+    print(f"Loaded dataset with {len(dataset)} instances and {num_features} features.")
 
-    print("Welcome to Team Blue's Feature Selection Algorithm.")
+    normalize_dataset(dataset)
+    print("Features normalized (zero mean, unit variance).\n")
 
-    dataset_path = input("\nType in the name of the file to test: ").strip()
-
-    try:
-        dataset, num_features = load_dataset(dataset_path)
-    except FileNotFoundError:
-        print(f"Error: Could not find file '{dataset_path}'. Please make sure it is in this directory.")
+    subset_str = input(
+        "Enter feature subset as space-separated indices (e.g., '3 5 7'): "
+    ).strip()
+    if not subset_str:
+        print("No features specified. Exiting.")
         return
 
-    print(f"\nThis dataset has {num_features} features (not including the class attribute), with {len(dataset)} instances.")
+    feature_subset = [int(x) for x in subset_str.split()]
+    print(f"Using feature subset: {feature_subset}\n")
 
-    print("\nPlease wait while I normalize the data... ", end="")
-    normalize_dataset(dataset)
-    print("Done!\n")
-
-   
     validator = LeaveOneOutValidator(dataset)
-
-    print("Type the number of the algorithm you want to run.")
-    print("  1) Forward Selection")
-    print("  2) Backward Elimination")
-    print("  3) Team Blue's Special Algorithm")
-
-    choice = input("\n").strip()
-    print()
-
-    try:
-        if choice == '1':
-            forward_selection(num_features)
-        elif choice == '2':
-            backward_elimination(num_features)
-        elif choice == '3':
-            special_algorithm(num_features)
-        else:
-            print("Invalid selection. Please run the program again and choose 1, 2, or 3.")
-
-    except KeyboardInterrupt:
-        print("\n\nProgram interrupted by user.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
+    # Set verbose=True if you want per-instance trace lines
+    validator.evaluate(feature_subset, verbose=False)
 
 
 if __name__ == "__main__":
