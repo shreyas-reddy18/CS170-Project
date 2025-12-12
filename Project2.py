@@ -1,8 +1,24 @@
 """
 CS170 Project 2: Part 1 & 3
 
-Authors: Shreyas, Rishabh, Rehan
+Group: Shreyas - snall008, Rishabh - rpill005, Rehan - malam041
+
+Results:
+- Small Dataset Results:
+    - Forward: The best feature subset is {3,5}, which has an accuracy of 92.0%
+    - Backward: The best feature subset is {2,4,5,7,10}, which has an accuracy of 82.0%
+    - Special Algorithm: Best subset found: {5}, accuracy = 75.0%
+- Large Dataset Results:
+    - Forward: The best feature subset is {1,27}, which has an accuracy of 95.5%
+    - Backward: The best feature subset is {2,3,4,5,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40}, which has an accuracy of 72.2%
+    - Special Algorithm: Best subset found: {1,27}, accuracy = 95.5%
+- Titanic Dataset Results:
+    - Foward: The best feature subset is {2}, which has an accuracy of 78.0%
+    - Backward: The best feature subset is {2}, which has an accuracy of 78.0%
+    - Special Algorithm: Best subset found: {2}, accuracy = 78.0%
 """
+
+
 
 import copy 
 from project_part2 import LeaveOneOutValidator, load_dataset, normalize_dataset
@@ -93,7 +109,7 @@ def forward_selection(total_features):
             print(f"\nFeature set {print_feature_set(current_features)} was best, accuracy is {best_accuracy_at_level}%\n")
             
             # Check if we improved overall (greedy stopping condition)
-            if best_accuracy_at_level > best_overall_accuracy:
+            if best_accuracy_at_level >= best_overall_accuracy:
                 best_overall_accuracy = best_accuracy_at_level
                 best_overall_features = copy.deepcopy(current_features)
             else:
