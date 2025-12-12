@@ -1,7 +1,7 @@
 """
 CS170 Project 2: Part 1 & 3
 
-Group: Shreyas - snall008, Rishabh - rpill005, Rehan - malam041
+Group: Shreyas Nallapareddy - snall008, Rishabh Pillai - rpill005, Rehan ALam - malam041
 
 Results:
 - Small Dataset Results:

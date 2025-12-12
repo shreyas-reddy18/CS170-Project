@@ -2,7 +2,21 @@
 CS170 Project 2 - Part II
 Nearest Neighbor Classifier and Leave-One-Out Validator
 
-Authors: Shreyas, Rishabh, Rehan
+Group: Shreyas Nallapareddy - snall008, Rishabh Pillai - rpill005, Rehan ALam - malam041
+
+Results:
+- Small Dataset Results:
+    - Forward: The best feature subset is {3,5}, which has an accuracy of 92.0%
+    - Backward: The best feature subset is {2,4,5,7,10}, which has an accuracy of 82.0%
+    - Special Algorithm: Best subset found: {5}, accuracy = 75.0%
+- Large Dataset Results:
+    - Forward: The best feature subset is {1,27}, which has an accuracy of 95.5%
+    - Backward: The best feature subset is {2,3,4,5,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40}, which has an accuracy of 72.2%
+    - Special Algorithm: Best subset found: {1,27}, accuracy = 95.5%
+- Titanic Dataset Results:
+    - Foward: The best feature subset is {2}, which has an accuracy of 78.0%
+    - Backward: The best feature subset is {2}, which has an accuracy of 78.0%
+    - Special Algorithm: Best subset found: {2}, accuracy = 78.0%
 """
 import math
 import time
